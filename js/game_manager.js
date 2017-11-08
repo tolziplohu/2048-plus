@@ -126,6 +126,16 @@ GameManager.prototype.moveTile = function (tile, cell) {
   tile.updatePosition(cell);
 };
 
+GameManager.prototype.calcScore = function () {
+  var score = 0;
+  this.grid.eachCell(function (x, y, tile) {
+    if (tile) {
+      score += tile.value;
+    }
+  });
+  return score;
+}
+
 // Move tiles on the grid in the specified direction
 GameManager.prototype.move = function (direction) {
   // 0: up, 1: right, 2: down, 3: left
@@ -164,7 +174,7 @@ GameManager.prototype.move = function (direction) {
           tile.updatePosition(positions.next);
 
           // Update the score
-          self.score += merged.value;
+          //self.score = self.calcScore();
 
           // The mighty 2048 tile
           if (merged.value === 2048) self.won = true;
@@ -181,6 +191,10 @@ GameManager.prototype.move = function (direction) {
 
   if (moved) {
     this.addRandomTile();
+	
+    // Update the score
+    self.score = self.calcScore();
+
 
     if (!this.movesAvailable()) {
       this.over = true; // Game over!
