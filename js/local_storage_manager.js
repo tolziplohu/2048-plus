@@ -29,7 +29,7 @@ function LocalStorageManager() {
     let old_score = this.storage.getItem("bestScore");
     let new_score = this.getBestScore();
     if (old_score > new_score) {
-      this.storage.setItem(this.bestScoreKey + "4x4", score);
+      this.storage.setItem(this.bestScoreKey + "4x4", old_score);
     }
     this.storage.removeItem("bestScore");
   }
