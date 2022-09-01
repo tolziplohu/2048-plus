@@ -22,8 +22,9 @@ HTMLActuator.prototype.createGrid = function (size_x, size_y) {
     }
     this.gridContainer.appendChild(row);
   }
-  document.querySelector(".game-container").style.height = (125 * size_y) + "px";
-  document.querySelector(".game-container").style.width = (125 * size_x) + "px";
+  let perTile = window.innerWidth > 520 ? 125 : 70;
+  document.querySelector(".game-container").style.height = (perTile * size_y) + "px";
+  document.querySelector(".game-container").style.width = (perTile * size_x) + "px";
 
   let buttons = document.querySelector(".size-buttons");
   this.clearContainer(buttons);
@@ -103,13 +104,14 @@ HTMLActuator.prototype.addTile = function (tile) {
   if (tile.value > 2048) classes.push("tile-super");
 
   this.applyClasses(wrapper, classes);
+  let tileSize = window.innerWidth > 520 ? 121 : 67;
   if (tile.previousPosition && tile.previousPosition != { x: tile.x, y: tile.y }) {
-    wrapper.style.transform = "translate(" + (tile.previousPosition.x * 121) + "px, " + (tile.previousPosition.y * 121) + "px)";
+    wrapper.style.transform = "translate(" + (tile.previousPosition.x * tileSize) + "px, " + (tile.previousPosition.y * tileSize) + "px)";
     window.requestAnimationFrame(function() {
-        wrapper.style.transform = "translate(" + (tile.x * 121) + "px, " + (tile.y * 121) + "px)";
+        wrapper.style.transform = "translate(" + (tile.x * tileSize) + "px, " + (tile.y * tileSize) + "px)";
     });
   } else {
-    wrapper.style.transform = "translate(" + (tile.x * 121) + "px, " + (tile.y * 121) + "px)";
+    wrapper.style.transform = "translate(" + (tile.x * tileSize) + "px, " + (tile.y * tileSize) + "px)";
   }
 
 

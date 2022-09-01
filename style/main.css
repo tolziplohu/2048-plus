@@ -176,8 +176,7 @@ hr {
       font-size: 60px;
       font-weight: bold;
       height: 60px;
-      line-height: 60px;
-      margin-top: 222px; }
+      line-height: 60px; }
     .game-container .game-message .lower {
       display: block;
       margin-top: 59px; }
@@ -197,9 +196,12 @@ hr {
       background: rgba(237, 194, 46, 0.5);
       color: #f9f6f2; }
       .game-container .game-message.game-won a.keep-playing-button {
-        display: inline-block; }
+        display: inline-flex; }
     .game-container .game-message.game-won, .game-container .game-message.game-over {
-      display: block; }
+      display: flex;
+      justify-content: center;
+      flex-flow: column;
+    }
 
 .grid-container {
   position: absolute;
@@ -631,8 +633,7 @@ hr {
         font-size: 60px;
         font-weight: bold;
         height: 60px;
-        line-height: 60px;
-        margin-top: 222px; }
+        line-height: 60px; }
       .game-container .game-message .lower {
         display: block;
         margin-top: 59px; }
@@ -654,7 +655,10 @@ hr {
         .game-container .game-message.game-won a.keep-playing-button {
           display: inline-block; }
       .game-container .game-message.game-won, .game-container .game-message.game-over {
-        display: block; }
+        display: flex;
+        justify-content: center;
+        flex-flow: column;
+      }
 
   .grid-container {
     position: absolute;
@@ -687,7 +691,7 @@ hr {
     width: 58px;
     height: 58px;
     line-height: 58px; }
-  .tile.tile-position-1-1 {
+  /* .tile.tile-position-1-1 {
     -webkit-transform: translate(0px, 0px);
     -moz-transform: translate(0px, 0px);
     -ms-transform: translate(0px, 0px);
@@ -766,7 +770,7 @@ hr {
     -webkit-transform: translate(202px, 202px);
     -moz-transform: translate(202px, 202px);
     -ms-transform: translate(202px, 202px);
-    transform: translate(202px, 202px); }
+    transform: translate(202px, 202px); } */
 
   .tile .tile-inner {
     font-size: 35px; }
@@ -774,7 +778,6 @@ hr {
   .game-message p {
     font-size: 30px !important;
     height: 30px !important;
-    line-height: 30px !important;
-    margin-top: 90px !important; }
+    line-height: 30px !important; }
   .game-message .lower {
     margin-top: 30px !important; } }
