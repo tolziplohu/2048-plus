@@ -24,6 +24,15 @@ function LocalStorageManager() {
 
   var supported = this.localStorageSupported();
   this.storage = supported ? window.localStorage : window.fakeStorage;
+  // Migrate old best score to 4x4 mode
+  if (this.storage.getItem("bestScore")) {
+    let old_score = this.storage.getItem("bestScore");
+    let new_score = this.getBestScore();
+    if (old_score > new_score) {
+      this.storage.setItem(this.bestScoreKey + "4x4", score);
+    }
+    this.storage.removeItem("bestScore");
+  }
 }
 
 LocalStorageManager.prototype.localStorageSupported = function () {
