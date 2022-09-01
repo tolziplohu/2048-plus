@@ -1,11 +1,54 @@
-function HTMLActuator() {
+function HTMLActuator(manager) {
   this.tileContainer    = document.querySelector(".tile-container");
+  this.gridContainer    = document.querySelector(".grid-container");
   this.scoreContainer   = document.querySelector(".score-container");
   this.bestContainer    = document.querySelector(".best-container");
   this.messageContainer = document.querySelector(".game-message");
 
+  this.manager = manager;
+
   this.score = 0;
 }
+
+HTMLActuator.prototype.createGrid = function (size_x, size_y) {
+  this.clearContainer(this.gridContainer);
+  for (const _y of Array(size_y).keys()) {
+    let row = document.createElement("div");
+    row.className += "grid-row";
+    for (const _x of Array(size_x).keys()) {
+      let cell = document.createElement("div");
+      cell.className += "grid-cell";
+      row.appendChild(cell);
+    }
+    this.gridContainer.appendChild(row);
+  }
+  document.querySelector(".game-container").style.height = (125 * size_y) + "px";
+  document.querySelector(".game-container").style.width = (125 * size_x) + "px";
+
+  let buttons = document.querySelector(".size-buttons");
+  this.clearContainer(buttons);
+  for (const y of [2, 3, 4, 5]) {
+    for (const x of [2, 3, 4, 5]) {
+      let button = document.createElement("a");
+      button.className += "size-button";
+      button.append(x + "x" + y);
+ 
+      if (x == size_x && y == size_y) {
+        button.className += " size-current";
+      } else {
+        let fn = function(ev) {
+          this.manager.size_x = x;
+          this.manager.size_y = y;
+          this.manager.restart();
+        };
+        button.addEventListener("click", fn.bind(this));
+        button.addEventListener(this.eventTouchend, fn.bind(this));
+      }
+
+      buttons.appendChild(button);
+    }
+  }
+};
 
 HTMLActuator.prototype.actuate = function (grid, metadata) {
   var self = this;
@@ -60,6 +103,15 @@ HTMLActuator.prototype.addTile = function (tile) {
   if (tile.value > 2048) classes.push("tile-super");
 
   this.applyClasses(wrapper, classes);
+  if (tile.previousPosition && tile.previousPosition != { x: tile.x, y: tile.y }) {
+    wrapper.style.transform = "translate(" + (tile.previousPosition.x * 121) + "px, " + (tile.previousPosition.y * 121) + "px)";
+    window.requestAnimationFrame(function() {
+        wrapper.style.transform = "translate(" + (tile.x * 121) + "px, " + (tile.y * 121) + "px)";
+    });
+  } else {
+    wrapper.style.transform = "translate(" + (tile.x * 121) + "px, " + (tile.y * 121) + "px)";
+  }
+
 
   inner.classList.add("tile-inner");
   inner.textContent = tile.value;

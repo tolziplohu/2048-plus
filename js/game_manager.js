@@ -1,8 +1,9 @@
-function GameManager(size, InputManager, Actuator, StorageManager) {
-  this.size           = size; // Size of the grid
+function GameManager(size_x, size_y, InputManager, Actuator, StorageManager) {
+  this.size_x         = size_x; // Size of the grid
+  this.size_y         = size_y;
   this.inputManager   = new InputManager;
   this.storageManager = new StorageManager;
-  this.actuator       = new Actuator;
+  this.actuator       = new Actuator(this);
 
   this.startTiles     = 2;
 
@@ -37,14 +38,17 @@ GameManager.prototype.setup = function () {
 
   // Reload the game from a previous game if present
   if (previousState) {
-    this.grid        = new Grid(previousState.grid.size,
+    this.size_x = previousState.grid.size_x;
+    this.size_y = previousState.grid.size_y;
+    this.grid        = new Grid(previousState.grid.size_x,
+                                previousState.grid.size_y,
                                 previousState.grid.cells); // Reload grid
     this.score       = previousState.score;
     this.over        = previousState.over;
     this.won         = previousState.won;
     this.keepPlaying = previousState.keepPlaying;
   } else {
-    this.grid        = new Grid(this.size);
+    this.grid        = new Grid(this.size_x, this.size_y);
     this.score       = 0;
     this.over        = false;
     this.won         = false;
@@ -53,6 +57,8 @@ GameManager.prototype.setup = function () {
     // Add the initial tiles
     this.addStartTiles();
   }
+
+  this.actuator.createGrid(this.size_x, this.size_y);
 
   // Update the actuator
   this.actuate();
@@ -221,8 +227,10 @@ GameManager.prototype.getVector = function (direction) {
 GameManager.prototype.buildTraversals = function (vector) {
   var traversals = { x: [], y: [] };
 
-  for (var pos = 0; pos < this.size; pos++) {
+  for (var pos = 0; pos < this.size_x; pos++) {
     traversals.x.push(pos);
+  }
+  for (var pos = 0; pos < this.size_y; pos++) {
     traversals.y.push(pos);
   }
 
@@ -259,8 +267,8 @@ GameManager.prototype.tileMatchesAvailable = function () {
 
   var tile;
 
-  for (var x = 0; x < this.size; x++) {
-    for (var y = 0; y < this.size; y++) {
+  for (var x = 0; x < this.size_x; x++) {
+    for (var y = 0; y < this.size_y; y++) {
       tile = this.grid.cellContent({ x: x, y: y });
 
       if (tile) {

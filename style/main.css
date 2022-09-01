@@ -232,7 +232,7 @@ hr {
   width: 107px;
   height: 107px;
   line-height: 107px; }
-.tile.tile-position-1-1 {
+/* .tile.tile-position-1-1 {
   -webkit-transform: translate(0px, 0px);
   -moz-transform: translate(0px, 0px);
   -ms-transform: translate(0px, 0px);
@@ -311,7 +311,7 @@ hr {
   -webkit-transform: translate(363px, 363px);
   -moz-transform: translate(363px, 363px);
   -ms-transform: translate(363px, 363px);
-  transform: translate(363px, 363px); }
+  transform: translate(363px, 363px); } */
 
 .tile {
   position: absolute;
@@ -530,6 +530,28 @@ hr {
   text-align: center;
   float: right; }
 
+.size-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.size-button {
+  display: block;
+  background: #8f7a66;
+  border-radius: 3px;
+  padding: 0 20px;
+  text-decoration: none;
+  color: #f9f6f2;
+  height: 40px;
+  line-height: 42px;
+  display: block;
+  text-align: center;
+  margin: 3px;
+}
+.size-current {
+  background: #3c3a32;
+}
+  
 .game-explanation {
   margin-top: 50px; }
 

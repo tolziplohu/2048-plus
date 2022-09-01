@@ -1,5 +1,5 @@
 # 2048+
-A fork of 2048 that uses a different scoring method - your score is the sum of the values of all tiles on the grid. [Play it here!](https://thorn0906.github.io/2048-plus) The original 2048 is:
+A fork of 2048 that uses a different scoring method - your score is the sum of the values of all tiles on the grid. [Play it here!](https://tolziplohu.github.io/2048-plus) The original 2048 is:
 
 A small clone of [1024](https://play.google.com/store/apps/details?id=com.veewo.a1024), based on [Saming's 2048](http://saming.fr/p/2048/) (also a clone).
 
